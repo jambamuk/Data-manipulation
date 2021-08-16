@@ -27,7 +27,7 @@ def getDate(header):
 
 def getFinancialValue(footer):
     financialValue = float(footer[1:].lstrip('0'))/100
-    print(f'R {financialValue}')
+    print(f'Financial Value: R {financialValue}')
 
 
 data = fileData[0].split()
