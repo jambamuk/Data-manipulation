@@ -1,26 +1,30 @@
 from datetime import datetime
 import os
 
-COLLECTION_DIRECTORY = './COLLECTIONS_FNB/'
+COLLECTION_RESPONSES_DIRECTORY = './COLLECTIONS_FNB_RESPONSES/'
+COLLECTION_REQUESTS_DIRECTORY = './COLLECTIONS_FNB_REQUESTS/'
 
-HEADER_LENGTH = 22
-FOOTER_LENGTH = 15
-ENTRY_LENGTH = 263
+REQUEST_FOOTER_LENGTH = 15
+RESPONSE_FOOTER_LENGTH = 15
 
 #Declare Arrays
-fileNames = []
-fileData = []
-footers = []
+requestFileNames = []
+responseFileNames = []
+requestFileData = []
+responseFileData = []
+requestFinancialValues = []
+responseFinancialValues = []
 
-fileNames = os.listdir(COLLECTION_DIRECTORY)
-for i in range(len(fileNames)):
-    file = open(COLLECTION_DIRECTORY + fileNames[i], 'r')
-    fileData.append(file.read())
+
+responseFileNames = os.listdir(COLLECTION_RESPONSES_DIRECTORY)
+for i in range(len(responseFileNames)):
+    file = open(COLLECTION_RESPONSES_DIRECTORY + responseFileNames[i], 'r')
+    responseFileData.append(file.read())
     file.close()
 
-#entries = fileData[0][HEADER_LENGTH:-FOOTER_LENGTH]
-#print(entries)
 
-for i in fileData:
-    footer = fileData[i]
-footer = fileData[0]
+for i in range(len(responseFileData)):
+    footer = responseFileData[i][-RESPONSE_FOOTER_LENGTH:]
+    financialValueInRands = int(footer[1:].lstrip('0'))/100
+    responseFinancialValues.append(financialValueInRands)
+    print(f'Financial Value: R{financialValueInRands}')
