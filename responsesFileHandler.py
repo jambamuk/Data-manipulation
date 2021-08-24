@@ -1,26 +1,25 @@
-from datetime import datetime
-import os
+#Import Libararies
+import os, glob
 
+#Declare Variables
 COLLECTION_RESPONSES_DIRECTORY = './COLLECTIONS_FNB_RESPONSES/'
-
-REQUEST_FOOTER_LENGTH = 15
 RESPONSE_FOOTER_LENGTH = 15
+BILLINGMETHOD = 25
+PRODUCT = 1
+VERSION = 1
+DATE = 20210824
 
-# Declare Arrays
-responseFileNames = []
-responseFileData = []
-responseFinancialValues = []
+os.chdir(COLLECTION_RESPONSES_DIRECTORY)
 
-
-responseFileNames = os.listdir(COLLECTION_RESPONSES_DIRECTORY)
-for i in range(len(responseFileNames)):
-    file = open(COLLECTION_RESPONSES_DIRECTORY + responseFileNames[i], 'r')
-    responseFileData.append(file.read())
-    file.close()
-
-
-for i in range(len(responseFileData)):
-    footer = responseFileData[i][-RESPONSE_FOOTER_LENGTH:]
+def getFinancialValue(file):
+    footer =  file[-RESPONSE_FOOTER_LENGTH:]
     financialValueInRands = int(footer[1:].lstrip('0'))/100
-    responseFinancialValues.append(financialValueInRands)
-    print(f'Financial Value: R{financialValueInRands}')
+    return financialValueInRands
+
+
+for file in glob.glob(f'*{BILLINGMETHOD}_{PRODUCT}_{VERSION}_{DATE}*response'):
+    openedFile = open(file, 'r')
+    fileData = openedFile.read()
+    openedFile.close()
+
+    print(getFinancialValue(fileData))
