@@ -2,17 +2,13 @@ from datetime import datetime
 import os
 
 COLLECTION_RESPONSES_DIRECTORY = './COLLECTIONS_FNB_RESPONSES/'
-COLLECTION_REQUESTS_DIRECTORY = './COLLECTIONS_FNB_REQUESTS/'
 
 REQUEST_FOOTER_LENGTH = 15
 RESPONSE_FOOTER_LENGTH = 15
 
-#Declare Arrays
-requestFileNames = []
+# Declare Arrays
 responseFileNames = []
-requestFileData = []
 responseFileData = []
-requestFinancialValues = []
 responseFinancialValues = []
 
 
